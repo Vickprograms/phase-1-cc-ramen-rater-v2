@@ -1,12 +1,9 @@
-// index.js
-
 document.addEventListener("DOMContentLoaded", main);
 
-// Callbacks
-const handleClick = (ramen) => {
-  document.querySelector("#ramen-detail .name").textContent = ramen.name;
-    document.querySelector("#ramen-detail .restaurant").textContent = ramen.restaurant;
-    const detailImg = document.querySelector("#ramen-detail img");
+const handleClick = (ramen,) => {
+  document.querySelector(".name").textContent = ramen.name;
+  document.querySelector(".restaurant").textContent = ramen.restaurant;
+  const detailImg = document.querySelector(".detail-image");
     detailImg.src = ramen.image;
     detailImg.alt = ramen.name;
     document.getElementById("rating-display").textContent = ramen.rating;
@@ -19,11 +16,11 @@ const addSubmitListener = () => {
       event.preventDefault();
 
       const newRamen = {
-          name: event.target.name.value,
-          restaurant: event.target.restaurant.value,
-          image: event.target.image.value,
-          rating: event.target.rating.value,
-          comment: event.target.comment.value
+          name: document.getElementById("new-name").value,
+          restaurant: document.getElementById("new-restaurant").value,
+          image: document.getElementById("new-image").value,
+          rating: document.getElementById("new-rating").value,
+          comment: document.getElementById("new-comment").value
       };
 
       const img = document.createElement("img");
@@ -55,9 +52,7 @@ const displayRamens = () => {
 const main = () => {
   displayRamens();
   addSubmitListener();
-}
-
-main()
+};
 
 export {
   displayRamens,
