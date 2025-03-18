@@ -1,13 +1,15 @@
-document.addEventListener("DOMContentLoaded", main);
+document.addEventListener("DOMContentLoaded", () => {
+  main();
+});
 
-const handleClick = (ramen,) => {
-  document.querySelector(".name").textContent = ramen.name;
-  document.querySelector(".restaurant").textContent = ramen.restaurant;
-  const detailImg = document.querySelector(".detail-image");
-    detailImg.src = ramen.image;
-    detailImg.alt = ramen.name;
-    document.getElementById("rating-display").textContent = ramen.rating;
-    document.getElementById("comment-display").textContent = ramen.comment;
+const handleClick = (ramen) => {
+  document.querySelector("#ramen-detail .name").textContent = ramen.name;
+  document.querySelector("#ramen-detail .restaurant").textContent = ramen.restaurant;
+  const detailImg = document.querySelector("#ramen-detail img");
+  detailImg.src = ramen.image;
+  detailImg.alt = ramen.name;
+  document.getElementById("rating-display").textContent = ramen.rating;
+  document.getElementById("comment-display").textContent = ramen.comment;
 };
 
 const addSubmitListener = () => {
@@ -16,11 +18,11 @@ const addSubmitListener = () => {
       event.preventDefault();
 
       const newRamen = {
-          name: document.getElementById("new-name").value,
-          restaurant: document.getElementById("new-restaurant").value,
-          image: document.getElementById("new-image").value,
-          rating: document.getElementById("new-rating").value,
-          comment: document.getElementById("new-comment").value
+          name: event.target.name.value,
+          restaurant: event.target.restaurant.value,
+          image: event.target.image.value,
+          rating: event.target.rating.value,
+          comment: event.target.comment.value
       };
 
       const img = document.createElement("img");
@@ -34,10 +36,10 @@ const addSubmitListener = () => {
 }
 
 const displayRamens = () => {
-  fetch("http://localhost:3000/ramens") // Replace with your API URL
-        .then(response => response.json())
-        .then(ramens => {
+  fetch('http://localhost:3000/ramens').then(res=> res.json()).then(ramens => {
             const ramenMenu = document.getElementById("ramen-menu");
+            ramenMenu.innerHTML = "";
+
             ramens.forEach(ramen => {
                 const img = document.createElement("img");
                 img.src = ramen.image;
@@ -47,16 +49,10 @@ const displayRamens = () => {
             });
         })
         .catch(error => console.error("Error fetching ramen data:", error));
-};
+      };
 
-const main = () => {
-  displayRamens();
-  addSubmitListener();
-};
-
-export {
-  displayRamens,
-  addSubmitListener,
-  handleClick,
-  main,
-};
+      const  main= () => {
+        displayRamens();
+        addSubmitListener();
+      };
+      
